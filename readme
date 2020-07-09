@@ -1,0 +1,9 @@
+A discord bot to track who invited who to the server a give a role by the amount you 
+set to (you can chang it in line 66 in invite bot)
+
+--You *must* chang the role id to the role you want the bot to give 
+(Line 113 on invite bot in the id field)
+
+--I used sqlite to manege the DB 
+
+-- and chang the Token to yours

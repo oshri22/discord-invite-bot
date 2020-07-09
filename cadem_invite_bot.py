@@ -7,7 +7,7 @@ import sql_to_bot
 
 
 command_list = ["+invited_by","+print_top_test","+print_user_list","+help"]
-TOKEN = "NzIxNzU5NjQxODcyMTA1NTcy.XuZNSA.jWwHhNCM2AiFel6uFnyeTyoh45o"
+TOKEN = ""
 client = commands.Bot(command_prefix = "+")                             #the comand prefix
 client.remove_command("help")
 sql_admin = sql_to_bot.sql_mang()
