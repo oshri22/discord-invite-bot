@@ -105,7 +105,7 @@ class sql_mang:
         try:
             return list(self.controler.execute("SELECT id FROM ALLUSERS WHERE name = ?", (name, )))[0][0]
         except IndexError:
-            return list(self.controler.execute("SELECT id FROM ALLUSERS WHERE name = ?", (name, )))
+            return list(self.controler.execute("SELECT id FROM ALLUSERS WHERE name = ?", (name, ))) 
 
     def find_user_name(self, id: int):
         '''find the user name from user name'''
@@ -125,11 +125,16 @@ class sql_mang:
         self.controler.execute("DROP TABLE ALLUSERS")
         self.controler.execute("DROP TABLE USED")
         self.conn.commit()
+    
+    def find_users(self):
+        data = list(self.controler.execute("SELECT * FROM USERS"))
+        print(data)
+        return data[:3:]
 
 
 def main():
     with sql_mang() as foo:
-        pass
+        foo.find_users()
 
 if __name__ == "__main__":
     main()

@@ -6,7 +6,7 @@ import asyncio
 import sql_to_bot
 
 
-command_list = ["+invited_by","+print_top_test","+print_user_list","+help"]
+command_list = ["+invited_by","+print_top_test","+print_user_list","+help", "+get_top_users"]
 TOKEN = ""
 client = commands.Bot(command_prefix = "+")                             #the comand prefix
 client.remove_command("help")
@@ -52,7 +52,7 @@ async def invited_by(ctx, name):
     my_user_name = user_data[0]
     inviter_id = sql_admin.find_user_id(name)
 
-    print(my_user_name, " " ,my_id)
+    print(my_user_name, my_id, inviter_id)
 
     if inviter_id and not sql_admin.if_exist_at_all(int(inviter_id)):
         inviter_id = int(inviter_id)
@@ -117,6 +117,21 @@ async def give_role(ctx, name: str):
     for i in name_id:
         if str(i.name) == name:
             await i.add_roles(role)
+
+@client.command(pass_contex = True)
+async def get_top_users(ctx):
+    data_list = sql_admin.find_users()
+    sorted(data_list ,key = lambda x: x[2])
+    embed = discord.Embed(                  #create embed messeg
+        colour = discord.Colour.red()       #give it a color 
+    )
+
+    embed.set_author(name = "leader board")         #set the tittel
+    for i in data_list:
+        embed.add_field(name = f"{i[0]}#{i[1]}" , value = i[2],inline=False)
+    
+    await ctx.send(embed = embed)
+
 
 
 if __name__ == "__main__":
