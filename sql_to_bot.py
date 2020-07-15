@@ -134,7 +134,7 @@ class sql_mang:
 
 def main():
     with sql_mang() as foo:
-        foo.find_users()
+        print(foo.find_user_id("oshri22"))
 
 if __name__ == "__main__":
     main()
