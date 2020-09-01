@@ -5,10 +5,11 @@ import time
 import asyncio
 import sql_to_bot
 from sqlite3 import InterfaceError
+import pdb
 
 
 command_list = ["+invited_by", "+print_top_test", "+print_user_list",
-                "+help", "+get_top_users", "+get_amount_of_user"]
+                "+help", "+get_top_users", "+get_amount_of_user",]
 TOKEN = ""
 client = commands.Bot(command_prefix="+")  # the comand prefix
 client.remove_command("help")
@@ -108,17 +109,14 @@ async def help(ctx):
     await author.send(embed=embed)
 
 
-@client.command(pass_context=True)
 # This must be exactly the name of the appropriate role
-@commands.has_role("new role")
 async def give_role(ctx, name: str):
     '''still working  on this part'''
     role = get(ctx.message.guild.roles, id=721691189828649091)
-    name_id = client.get_all_members()
+    add_to = get(client.get_all_members(), name = name)
 
-    for i in name_id:
-        if str(i.name) == name:
-            await i.add_roles(role)
+    await add_to.add_roles(role)
+
 
 
 @client.command(pass_contex=True)
@@ -139,10 +137,13 @@ async def get_top_users(ctx):
 @client.command(pass_contex=True)
 async def get_amount_of_user(ctx, name):
     user_id = sql_admin.find_user_id(name)
+
     try:
         amount = sql_admin.get_invite_ammount(user_id)
         await ctx.send(amount)
+
     except InterfaceError:
+
         await ctx.send("coudnt find a user with the given name")
 
 

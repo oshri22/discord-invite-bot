@@ -131,10 +131,14 @@ class sql_mang:
         print(data)
         return data[:3:]
 
+    
 
 def main():
     with sql_mang() as foo:
-        print(foo.find_user_id("oshri22"))
+        #print(foo.find_user_id(""))
+        #foo.drop_tabels()
+        foo.update_invite_amount()
+        #pass
 
 if __name__ == "__main__":
     main()
